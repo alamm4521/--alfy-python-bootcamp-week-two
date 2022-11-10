@@ -57,37 +57,31 @@ while True:
 
 #Assienment 2 ########################################
 
+def array_refarence():
+
+    arr_ref = [0, 1, 0, -1]
+
+    return arr_ref
 
 def check_monotonic_sequence(sequence):
+    
+    arr_ref = [0, 1, 0, -1]
 
-    sequence.append(0)
+    lst = sequence
 
-    x = len(sequence)
+    q = [False]*4
 
-    result = [True]*4
+    for i in range(len(arr_ref)-1):
+        if arr_ref[i] >= lst[i]:
+            q[i] = True
+        elif arr_ref[i] > lst[i]:
+            q[i] = True
+        elif arr_ref[i] <= lst[i]:
+            q[i] = True
+        elif arr_ref[i] < lst[i]:
+            q[i] = True
 
-
-    for i in range(x-1):
-        if sequence[i] < sequence[i+1]:
-            result.append(False)
-
-    for i in range(x-1):
-        if sequence[i] > sequence[i+1]:
-            result.append(False)
-
-    return result
-
-
-#data = [1, 2, 3 , 3]
-#data = [1, 2, 3, 4, 5, 6, 7, 8]
-data = [1, 2, 2, 3]
-#data = [1, 1, 1, 1]
-
-# call check_monotonic_sequence(sequence) function
-
-result = check_monotonic_sequence(data)
-
-print(result)
+    return q
 
 #3 ##############################
 
@@ -172,94 +166,92 @@ def vectors_list_sum(arr):
 # 5 Orthogonal vectors
 
 
-def calc_the_inner_product(vec_1, vec_2):
+def calc_the_inner_product(arr1,arr2):
 
-   vec_1 = np.array(vec_1)
-   vec_2 = np.array(vec_2)
+   len_arr1 = len(arr1)
+   len_arr2 = len(arr2)
+
+   arr1 = np.array(arr1)
+   arr2 = np.array(arr2)
 
    
+   if np.shape(arr1) != np.shape(arr2):
+      if len(arr1) == 0 or len(arr2) == 0:
+          return None
+      elif np.shape(arr1) < np.shape(arr2):
+        arr1 = np.full(np.shape(arr2),fill_value = "",dtype=int)
+      elif np.shape(arr1) > np.shape(arr2):
+            arr2 = np.full(np.shape(arr1),fill_value = "",dtype=int)
+        
+   
+   count = np.multiply(arr1, arr2)
 
-   count = np.multiply(vec_1, vec_2)
+   total = np.sum(count)
 
-   return count
-
-
+   return total
 
 
+def function_skip_same_array(Flag_array, a, b):
 
-""" gets two list, calculates their inner
-        product and returns it
+  if a == b == 0 or Flag_array == [] or a == b:
+    return False
+  elif len(Flag_array) <= 2:
+    return False
+  else:     
+  
+    lst = Flag_array
 
-    :param vec_1: list of numbers
-    :param vec_2: list of numbers
-    :return: the inner product of the two lists.
-    """
+    lst.reverse()
 
+    #lst_revarce = lst(reversed(lst))
+    
+    lst_revarce = np.array(lst)
+    lst_revarce_len = int(len(lst))
+    lst_revarce = np.array_split(lst_revarce, (lst_revarce_len/2))
+
+    #Swap a, and b
+    temp1 = a 
+    temp2 = b
+    a = temp2
+    b = temp1    
+
+
+    arr = np.array([a, b])
+
+    for i in range(int((lst_revarce_len)/2)):
+        if np.array_equal(arr[i], lst_revarce[i]):
+        #if arr[i] == lst_revarce[i]:
+            return True
+        else:
+            return False    
 
 def orthogonal_number(vectors):
-
-    arr = np.array(vectors)
+    arr = np.array(vectors, dtype=int)
     
+
     n = arr.shape[0]
-    arr = np.array_split(arr, n)  
+    arr = np.array_split(arr, n)
 
     for i in range(n):
         arr[i] = np.array(arr[i])
+   
+    count = 0
+    Flag_no_repit = []
+    #Flag_no_repit = np.array(Flag_no_repit,dtype=int)
+    
+            
+    for x in range(len(vectors)):
+            for y in range(len(vectors)):
+                if function_skip_same_array(Flag_no_repit, x, y) == False:
+                    if x != y:
+                        if calc_the_inner_product(arr[x], arr[y]) == 0:
+                            count = count + 1
+                            Flag_no_repit.append(x)
+                            Flag_no_repit.append(y)
+                            #np.append(Flag_no_repit, x) #
+                            #np.append(Flag_no_repit, y) #
+                            continue 
 
-    vec1 = []
-    vec2 = []
-    vec3 = []
-    vec4 = []
-    vec5 = []
-    temp_array = []
-    if n == 3:
-       vec1 = np.array(arr[0])
-       vec2 = np.array(arr[1])
-       vec3 = np.array(arr[2])
-       temp_array.append(calc_the_inner_product(vec1, vec2))
-       temp_array.append(calc_the_inner_product(vec2, vec3))
-       temp_array.append(calc_the_inner_product(vec1, vec3))
-    elif n == 4:
-       vec1 = np.array(arr[0])
-       vec2 = np.array(arr[1])
-       vec3 = np.array(arr[2])
-       vec4 = np.array(arr[3])
-       temp_array.append(calc_the_inner_product(vec1, vec2))
-       temp_array.append(calc_the_inner_product(vec2, vec3))
-       temp_array.append(calc_the_inner_product(vec3, vec4))
-       temp_array.append(calc_the_inner_product(vec1, vec4))
-       temp_array.append(calc_the_inner_product(vec1, vec3))
-       temp_array.append(calc_the_inner_product(vec2, vec4))
-       temp_array.append(calc_the_inner_product(vec2, vec4))
-    elif n == 5:
-        vec1 = np.array(arr[0])
-        vec2 = np.array(arr[1])
-        vec3 = np.array(arr[2])
-        vec4 = np.array(arr[3])   
-        vec5 = np.array(arr[4])
-
-        temp_array.append(calc_the_inner_product(vec1, vec2))
-        temp_array.append(calc_the_inner_product(vec1, vec3))
-        temp_array.append(calc_the_inner_product(vec2, vec3))
-        temp_array.append(calc_the_inner_product(vec2, vec4))
-        temp_array.append(calc_the_inner_product(vec2, vec5))
-        temp_array.append(calc_the_inner_product(vec3, vec4))
-        temp_array.append(calc_the_inner_product(vec3, vec5))
-        temp_array.append(calc_the_inner_product(vec4, vec1))
-        temp_array.append(calc_the_inner_product(vec4, vec5))
-        
-
-
-   # print(temp_array)
-    q = 0
-    if (np.array_equal(temp_array[0],temp_array[1])):
-        q = q + 1
-    elif (np.array_equal(temp_array[1], temp_array[2])):
-        q = q + 1
-    elif (np.array_equal(temp_array[0], temp_array[2])):
-        q = q + 1
-
-    return str(q)
-
-
-
+    return (count/2)
+            
+                

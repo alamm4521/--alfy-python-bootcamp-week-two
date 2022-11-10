@@ -22,13 +22,13 @@ from ex3 import *
 #         A. 2         #
 ########################
 
-"""assert (calc_the_inner_product([1, 2, 3], [1, 2, 3]) == 14).all()
+assert (calc_the_inner_product([1, 2, 3], [1, 2, 3]) == 14).all()
 assert calc_the_inner_product([1, 2, 3], [10.5, -2, 0]) == 6.5
 assert calc_the_inner_product([1, 2, 3], []) is None
 assert calc_the_inner_product([0], [0]) == 0
 assert calc_the_inner_product([-10], [-5]) == 50
 assert calc_the_inner_product([], [1]) is None
-assert calc_the_inner_product([], []) == 0"""
+assert calc_the_inner_product([], []) == 0
 
 
 ########################
@@ -63,8 +63,8 @@ assert (check_monotonic_sequence([-10])
         == [True, True, True, True])
 
 assert (check_monotonic_sequence([0])
-        == [True, True, True, True])"""
-
+        == [True, True, True, True])
+"""
 
 ########################
 #         A. 4         #
@@ -139,7 +139,7 @@ assert (vectors_list_sum([[1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]) == [2, 2, 2, 2, 2])
 #         A. 6         #
 ########################
 
-"""assert orthogonal_number([[1, 0, 0], [0, 1, 0], [0, 0, 1]]) == 3
+assert (orthogonal_number([[1, 0, 0], [0, 1, 0], [0, 0, 1]]) == 3)
 
 assert orthogonal_number([[0, 0], [1, 2], [10, 5]]) == 2
 
@@ -149,6 +149,6 @@ assert orthogonal_number([[1, 1, 1, 1],
                           [8, 8, 8, 1.5],
                           [9, 9, 9, 9]]) == 0
 
-assert orthogonal_number([[0], [0], [0], [0]]) == 6"""
+assert orthogonal_number([[0], [0], [0], [0]]) == 6
 
 print("All tests passed")
